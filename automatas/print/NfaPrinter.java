@@ -1,7 +1,7 @@
 package print;
 
-import automatas.thompson.NFA;
-import automatas.thompson.State;
+import parser.NFA;
+import parser.State;
 
 import java.util.HashSet;
 import java.util.LinkedList;

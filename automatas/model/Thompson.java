@@ -1,6 +1,7 @@
-package automatas.thompson;
+package model;
 
-import model.Nodo;
+import parser.NFA;
+import parser.State;
 
 public class Thompson {
 

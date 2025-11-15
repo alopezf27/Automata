@@ -1,4 +1,4 @@
-package automatas.thompson;
+package parser;
 
 public class NFA {
     public State start;

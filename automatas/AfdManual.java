@@ -3,12 +3,12 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.HashSet;
 
+import parser.NFA;
 import parser.RegexParser;
 import parser.RegexParser.RegexParseException;
 import print.ArbolPrinter;
-import automatas.thompson.Thompson;
 import model.Nodo;
-import automatas.thompson.NFA;
+import model.Thompson;
 import print.NfaPrinter;
 
 public class AfdManual {
