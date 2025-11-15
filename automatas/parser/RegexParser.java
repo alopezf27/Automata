@@ -1,7 +1,8 @@
 package parser;
 
-import model.Nodo;
 import java.util.*;
+
+import model.Nodo;
 
 public class RegexParser {
 
@@ -27,10 +28,27 @@ public class RegexParser {
     private Token current;
 
     // -------------------------------------------------------------------------
-    // PARSE PRINCIPAL
+    // PARSE PRINCIPAL  (AQUÍ VA EL CAMBIO IMPORTANTE)
     // -------------------------------------------------------------------------
     public Nodo parse(String expr) throws RegexParseException {
-        this.tokens = tokenize(expr);
+
+        // 1. Validar que venga algo y que termine en '.'
+        if (expr == null || expr.isEmpty()) {
+            throw new RegexParseException("Expresión vacía", 0, "símbolo");
+        }
+        if (expr.charAt(expr.length() - 1) != '.') {
+            throw new RegexParseException("Se esperaba '.' al final", expr.length(), "'.'");
+        }
+
+        // 2. Quitamos el '.' final del usuario
+        String base = expr.substring(0, expr.length() - 1);
+
+        // 3. Extendemos la ER: (base)#.
+        //    Ej:  "abcd."  -->  "(abcd)#."
+        String extendida = "(" + base + ")#.";
+
+        // 4. Tokenizamos y parseamos la expresión EXTENDIDA
+        this.tokens = tokenize(extendida);
         this.tokens = insertConcatenation(tokens);
         this.pos = 0;
         this.current = tokens.get(0);
@@ -83,6 +101,7 @@ public class RegexParser {
             }
         }
 
+        // Si llegó aquí, nunca encontró '.', pero nosotros ya lo forzamos antes.
         throw new RegexParseException("Se esperaba '.' al final", expr.length(), "'.'");
     }
 

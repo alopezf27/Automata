@@ -1,12 +1,13 @@
+
 import java.util.Scanner;
 import java.util.Set;
 import java.util.HashSet;
 
-import model.Nodo;
 import parser.RegexParser;
 import parser.RegexParser.RegexParseException;
 import print.ArbolPrinter;
 import automatas.thompson.Thompson;
+import model.Nodo;
 import automatas.thompson.NFA;
 import print.NfaPrinter;
 

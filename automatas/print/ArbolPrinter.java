@@ -1,8 +1,8 @@
 package print;
 
-import model.Nodo;
-
 import java.util.*;
+
+import model.Nodo;
 
 public class ArbolPrinter {
 
