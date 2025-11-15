@@ -6,6 +6,9 @@ import model.Nodo;
 import parser.RegexParser;
 import parser.RegexParser.RegexParseException;
 import print.ArbolPrinter;
+import automatas.thompson.Thompson;
+import automatas.thompson.NFA;
+import print.NfaPrinter;
 
 public class AfdManual {
 
@@ -276,6 +279,10 @@ public class AfdManual {
 
                 System.out.println("\n=== MÉTODO DEL ÁRBOL (centrado real) ===");
                 ArbolPrinter.print(raiz, pre);
+
+                // Construir y mostrar el NFA de Thompson
+                NFA nfa = Thompson.fromRegexTree(raiz);
+                NfaPrinter.print(nfa);
 
             } catch (RegexParseException e) {
                 mostrarError(pre, e);
