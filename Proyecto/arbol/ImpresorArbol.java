@@ -2,25 +2,35 @@ package Proyecto.arbol;
 
 public class ImpresorArbol {
 
-    public static void imprimir(NodoArbol nodo) {
+    public static void imprimir(NodoArbol raiz) {
         System.out.println("\n======= ÁRBOL DE EXPRESIÓN =======\n");
-        imprimirRec(nodo, 0);
+        imprimirRec(raiz, 0);
         System.out.println("\n==================================\n");
     }
 
     private static void imprimirRec(NodoArbol nodo, int nivel) {
         if (nodo == null) return;
 
-        imprimirRec(nodo.derecho, nivel + 1);
-        for (int i = 0; i < nivel; i++) System.out.print("   ");
-        System.out.println(formato(nodo));
-        imprimirRec(nodo.izquierdo, nivel + 1);
+        // imprimir primero los hijos derechos (para efecto árbol)
+        imprimirRec(nodo.derecho, nivel + 4);
+
+        // imprimir nodo
+        String indent = " ".repeat(nivel);
+
+        if (esHoja(nodo)) {
+            System.out.println(indent + nodo.simbolo + " (" + nodo.posicionHoja + ")");
+            System.out.println(indent + (nodo.anulable ? "V" : "F"));
+        } else {
+            System.out.println(indent + nodo.simbolo);
+            System.out.println(indent + (nodo.anulable ? "V" : "F"));
+        }
+
+        // hijos izquierdos después
+        imprimirRec(nodo.izquierdo, nivel + 4);
     }
 
-    private static String formato(NodoArbol n) {
-        if (n.posicionHoja != null) {
-            return n.simbolo + " (" + n.posicionHoja + ")";
-        }
-        return n.simbolo;
+    // Método auxiliar para saber si un nodo es hoja
+    private static boolean esHoja(NodoArbol nodo) {
+        return nodo.izquierdo == null && nodo.derecho == null;
     }
 }

@@ -1,7 +1,9 @@
 package Proyecto.arbol;
 
-import automata.ExcepcionCadena;
-import java.util.Stack;
+import java.util.ArrayList;
+import java.util.List;
+
+import Proyecto.automata.ExcepcionCadena;
 
 public class ConstructorArbol {
 
@@ -86,4 +88,32 @@ public class ConstructorArbol {
     private boolean esConcatenable(char c) {
         return c != ')' && c != '+' && c != '*';
     }
+
+    public static void numerarHojas(NodoArbol raiz) {
+        List<NodoArbol> hojas = new ArrayList<>();
+        recolectarHojas(raiz, hojas);
+
+        int contador = 1;
+        for (NodoArbol hoja : hojas) {
+            hoja.posicionHoja = contador++;
+        }
+    }
+
+    private static void recolectarHojas(NodoArbol nodo, List<NodoArbol> hojas) {
+        if (nodo == null) return;
+
+        if (esHoja(nodo)) {
+            hojas.add(nodo);
+            return;
+        }
+
+        recolectarHojas(nodo.izquierdo, hojas);
+        recolectarHojas(nodo.derecho, hojas);
+    }
+
+    // Método auxiliar para saber si un nodo es hoja
+    private static boolean esHoja(NodoArbol nodo) {
+        return nodo.izquierdo == null && nodo.derecho == null;
+    }
+
 }

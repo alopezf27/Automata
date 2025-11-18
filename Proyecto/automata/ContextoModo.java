@@ -9,42 +9,26 @@ public class ContextoModo {
     private Modo modoActual = Modo.NUMERICO;
 
     private Map<Modo, List<String>> expresiones = new HashMap<>();
-    private Map<Modo, String> descripcionModo = new HashMap<>();
 
     public ContextoModo() {
         inicializar();
     }
 
     private void inicializar() {
+
+        // MODO GENERAL (NUMERICO)
         expresiones.put(Modo.NUMERICO, new ArrayList<>());
+        expresiones.get(Modo.NUMERICO).add("[0-9]*.");
+        expresiones.get(Modo.NUMERICO).add("[A-Za-z][A-Za-z0-9]*.");
+        expresiones.get(Modo.NUMERICO).add("[A-Z][A-Za-z0-9]*.");
+
+        // MODO LOGICO
         expresiones.put(Modo.LOGICO, new ArrayList<>());
+        expresiones.get(Modo.LOGICO).add("A+B*C.");
+
+        // MODO MIXTO
         expresiones.put(Modo.MIXTO, new ArrayList<>());
-
-        // Default
-        expresiones.get(Modo.NUMERICO).add("(0+1+2+3+4+5+6+7+8+9)+.");
-
-        descripcionModo.put(Modo.NUMERICO,
-                "Cadenas numéricas que:\n" +
-                " - Usan solo dígitos 0-9\n" +
-                " - Deben terminar con un punto (.)\n" +
-                " - Mínimo un dígito");
-
-        // Lógico
-        expresiones.get(Modo.LOGICO).add("A+B.C*.");
-
-        descripcionModo.put(Modo.LOGICO,
-                "Cadenas lógicas con operadores:\n" +
-                " - Letras A-Z\n" +
-                " - Operadores +, concatenación y *\n" +
-                " - Deben terminar en punto");
-
-        // Mix
-        expresiones.get(Modo.MIXTO).add("(0+1+A+B+C)*.");
-
-        descripcionModo.put(Modo.MIXTO,
-                "Modo combinado:\n" +
-                " - Números + Letras + Operadores\n" +
-                " - Debe terminar en punto");
+        expresiones.get(Modo.MIXTO).add("(A+B+0+1)*.");
     }
 
     public void cambiarModo(Modo nuevo) {
@@ -59,20 +43,8 @@ public class ContextoModo {
         return expresiones.get(modoActual);
     }
 
-    public String getERActiva() {
-        return expresiones.get(modoActual).get(0);
-    }
-
     public void cambiarER(int index, String nueva) {
         expresiones.get(modoActual).set(index, nueva);
-    }
-
-    public void agregarER(String nueva) {
-        expresiones.get(modoActual).add(nueva);
-    }
-
-    public String getDescripcionModo() {
-        return descripcionModo.get(modoActual);
     }
 
     public Map<Modo, List<String>> todas() {

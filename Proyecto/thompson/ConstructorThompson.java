@@ -1,6 +1,6 @@
 package Proyecto.thompson;
 
-import automata.ExcepcionCadena;
+import Proyecto.automata.ExcepcionCadena;
 import java.util.Stack;
 
 public class ConstructorThompson {
